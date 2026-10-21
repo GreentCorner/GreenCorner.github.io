@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GREAT CORNER — SMKN 2 Purwokerto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav" id="nav">
+  <a href="#beranda" class="brand">🌿 GREAT CORNER</a>
+  <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false">☰</button>
+  <nav id="menu" aria-label="Navigasi utama">
+    <a href="#beranda">Beranda</a><a href="#tentang">Tentang</a><a href="#tanaman">Tanaman</a>
+    <a href="#pertumbuhan">Pertumbuhan</a><a href="#jurnal">Jurnal</a><a href="#grafik">Grafik</a>
+    <a href="#perawatan">Perawatan</a><a href="#dokumentasi">Dokumentasi</a>
+    <button id="themeBtn" class="icon-btn" aria-label="Ganti tema">🌙</button>
+  </nav>
+</header>
+
+<main>
+<section id="beranda" class="hero">
+  <div class="hero-in">
+    <h1>GREAT<br>CORNER</h1>
+    <p>Project kolaborasi lintas mata pelajaran di SMKN 2 Purwokerto: seluruh siswa kelas X merawat dan memantau mawar dan melati selama 13 minggu.</p>
+    <div class="row">
+      <button class="btn" data-go="#tentang">Jelajahi Project</button>
+      <button class="btn ghost" data-go="#pertumbuhan">Lihat Pertumbuhan</button>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true"><span>🌹</span><span>🌼</span></div>
+</section>
+
+<section id="tentang" class="sec">
+  <h2>Tentang GREAT CORNER</h2>
+  <p class="lead">GREAT CORNER adalah project kolaborasi antar mata pelajaran Bahasa Indonesia, Bahasa Inggris, IPA, Matematika, dan Informatika di SMKN 2 Purwokerto yang dilaksanakan oleh seluruh kelas X (sepuluh).</p>
+  <div class="grid g5">
+    <article class="card"><h3>Bahasa Indonesia</h3><p>Penyusunan jurnal, laporan, dan penyampaian informasi.</p></article>
+    <article class="card"><h3>Bahasa Inggris</h3><p>Penerapan bahasa Inggris dalam dokumentasi dan informasi project.</p></article>
+    <article class="card"><h3>IPA</h3><p>Memahami pertumbuhan, kebutuhan, dan perawatan tanaman.</p></article>
+    <article class="card"><h3>Matematika</h3><p>Pengukuran, pengolahan data, dan grafik pertumbuhan.</p></article>
+    <article class="card"><h3>Informatika</h3><p>Pembuatan, pengolahan, dan penyajian website serta data digital.</p></article>
+  </div>
+  <h2 class="sub">Tim Project</h2>
+  <div class="grid g3" id="team"></div>
+</section>
+
+<section id="tanaman" class="sec alt">
+  <h2>Tanaman Project</h2>
+  <div class="grid g2" id="plantCards"></div>
+</section>
+
+<section id="pertumbuhan" class="sec">
+  <h2>Timeline Pertumbuhan</h2>
+  <p class="lead">Dimulai 31 Agustus 2026. Pilih minggu untuk melihat statusnya.</p>
+  <div class="weeks" id="weeks" role="tablist"></div>
+  <div class="card" id="weekInfo" aria-live="polite"></div>
+  <h2 class="sub">Ringkasan</h2>
+  <div class="grid g2" id="stats"></div>
+</section>
+
+<section id="jurnal" class="sec alt">
+  <h2>Jurnal Tanaman</h2>
+  <div class="tabs" id="jTabs"></div>
+  <div class="row between">
+    <button class="btn" id="addJ">+ Tambah Jurnal</button>
+    <button class="btn ghost" id="resetJ">Reset Jurnal</button>
+  </div>
+  <form id="jForm" class="card form" hidden novalidate>
+    <label>Tanaman
+      <select id="fPlant"><option value="mawar">🌹 Mawar</option><option value="melati">🌼 Melati</option></select></label>
+    <label>Minggu (0–4)<input id="fWeek" type="number" min="0" max="12" placeholder="mis. 2" required></label>
+    <label>Tanggal<input id="fDate" type="date" readonly></label>
+    <label>Tinggi (cm)<input id="fH" type="number" step="0.1" min="0" placeholder="mis. 18.5" required></label>
+    <label>Jumlah daun<input id="fL" type="number" min="0" placeholder="mis. 12" required></label>
+    <label>Kondisi
+      <select id="fC"><option>Sehat</option><option>Cukup sehat</option><option>Perlu perhatian</option></select></label>
+    <label>Aktivitas perawatan<input id="fA" placeholder="mis. Penyiraman pagi" required></label>
+    <label class="wide">Catatan<textarea id="fN" rows="2" placeholder="Catatan pengamatan"></textarea></label>
+    <div class="row wide"><button class="btn" type="submit">Simpan Jurnal</button><button class="btn ghost" type="button" id="cancelJ">Batal</button></div>
+  </form>
+  <div class="scroll"><table class="tbl"><thead><tr>
+    <th>Minggu</th><th>Tanggal</th><th>Tinggi</th><th>Daun</th><th>Kondisi</th><th>Aktivitas</th><th>Catatan</th><th>Aksi</th>
+  </tr></thead><tbody id="jBody"></tbody></table></div>
+</section>
+
+<section id="grafik" class="sec">
+  <h2>Grafik Pertumbuhan</h2>
+  <div class="grid g2">
+    <div class="card"><h3>🌹 Grafik Pertumbuhan Mawar</h3><div class="chart"><canvas id="chartMawar"></canvas></div></div>
+    <div class="card"><h3>🌼 Grafik Pertumbuhan Melati</h3><div class="chart"><canvas id="chartMelati"></canvas></div></div>
+  </div>
+</section>
+
+<section id="perawatan" class="sec alt">
+  <h2>Checklist Perawatan</h2>
+  <div class="grid g2" id="checks"></div>
+</section>
+
+<section id="dokumentasi" class="sec">
+  <h2>Dokumentasi</h2>
+  <div class="tabs" id="dFilters"></div>
+  <div class="grid g4" id="gallery"></div>
+</section>
+</main>
+
+<footer>
+  <strong>GREAT CORNER</strong>
+  <span>SMKN 2 Purwokerto · Project Kolaborasi Kelas X</span>
+  <span>Bahasa Indonesia • Bahasa Inggris • IPA • Matematika • Informatika</span>
+  <small>© 2026 GREAT CORNER — SMKN 2 Purwokerto</small>
+</footer>
+
+<div class="overlay" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="dialog"><button class="close" data-close aria-label="Tutup">✕</button><div id="mBody"></div></div>
+</div>
+<div class="overlay dark" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Lightbox dokumentasi">
+  <button class="close" data-close aria-label="Tutup">✕</button>
+  <button class="nav-btn l" id="lbPrev" aria-label="Sebelumnya">‹</button>
+  <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+  <button class="nav-btn r" id="lbNext" aria-label="Berikutnya">›</button>
+</div>
+<div id="toast" class="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
